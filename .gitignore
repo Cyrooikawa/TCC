@@ -1,0 +1,18 @@
+# --- Dependências e Temporários ---
+node_modules/
+temp/
+
+# --- Documentos Pessoais (Caminho relativo) ---
+# Se a pasta DIARIO estiver na raiz do seu projeto:
+DIARIO/
+
+# --- Dados do TCC (Arquivos Pesados) ---
+# Como você lida com grandes datasets de tráfego, 
+# é bom evitar que arquivos gigantes travem o Git:
+*.csv
+*.xlsx
+*.zip
+*.rar
+
+# --- Configurações de Ambiente ---
+.env
