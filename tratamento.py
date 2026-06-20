@@ -15,7 +15,6 @@ padrao = '|'.join(termos_rms)
 coluna_filtro = 'PRACA' 
 
 if coluna_filtro in df_total.columns:
-    # 1. Filtro de Inclusão (aqui o 'ITU' vai trazer 'ITUPEVA' por engano)
     df_rms = df_total[df_total[coluna_filtro].str.contains(padrao, na=False, case=False)].copy()
 
     # -------------------------------------------------------------------------
@@ -29,7 +28,6 @@ if coluna_filtro in df_total.columns:
     df_rms['PONTO_ID'] = df_separado[0].str.strip()
     df_rms['CIDADE_NOME'] = df_separado[1].fillna(df_rms['PRACA']).str.strip()
 
-    # 4. FUNÇÃO DE LIMPEZA AVANÇADA
     def limpar_cidade(row):
         cidade = str(row['CIDADE_NOME']).upper()
         ponto = str(row['PONTO_ID']).upper()
@@ -48,7 +46,7 @@ if coluna_filtro in df_total.columns:
     print("Padronizando nomes dos municípios...")
     df_rms['CIDADE_NOME'] = df_rms.apply(limpar_cidade, axis=1)
 
-    # 5. Resultado Final
+    # Resultado Final
     print("\n--- AMOSTRA DOS DADOS TRATADOS ---")
     print(df_rms[['PRACA', 'PONTO_ID', 'CIDADE_NOME']].drop_duplicates().sort_values('CIDADE_NOME'))
 
