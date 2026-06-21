@@ -1,18 +1,22 @@
-# --- Dependências e Temporários ---
-node_modules/
-temp/
-
-# --- Documentos Pessoais (Caminho relativo) ---
-# Se a pasta DIARIO estiver na raiz do seu projeto:
-DIARIO/
-
-# --- Dados do TCC (Arquivos Pesados) ---
-# Como você lida com grandes datasets de tráfego, 
-# é bom evitar que arquivos gigantes travem o Git:
+# Ignorar todos os arquivos de dados brutos e planilhas pesadas
 *.csv
 *.xlsx
-*.zip
-*.rar
+data/brutos/
 
-# --- Configurações de Ambiente ---
+# EXCEÇÃO: Permitir o envio da base final limpa para o modelo
+!base_RMS_final.csv
+
+# Arquivos de cache do Python e Jupyter Notebook
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Ambientes Virtuais (caso você use)
+venv/
+env/
 .env
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db

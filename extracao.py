@@ -8,6 +8,7 @@ arquivos = glob.glob(os.path.join(caminho, "**", "*.csv"), recursive=True)
 nome_arquivo_saida = "base_unificada_tcc.csv"
 caminho_salvar = os.path.join(caminho, nome_arquivo_saida)
 
+
 print(f"Foram encontrados {len(arquivos)} arquivos csv.")
 
 if len(arquivos) > 0:

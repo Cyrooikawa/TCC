@@ -4,6 +4,7 @@ import os
 caminho_base_unificada = r'C:\Users\Cyroo\Documents\TCC\DIARIO\base_unificada_tcc.csv'
 df_total = pd.read_csv(caminho_base_unificada)
 
+
 # Municipios da região metropolitana de Sorocaba
 termos_rms = [
     'SOROCABA', 'VOTORANTIM', 'ITU', 'SALTO', 'TATUI', 'BOITUVA', 
@@ -13,6 +14,7 @@ termos_rms = [
 
 padrao = '|'.join(termos_rms)
 coluna_filtro = 'PRACA' 
+
 
 if coluna_filtro in df_total.columns:
     df_rms = df_total[df_total[coluna_filtro].str.contains(padrao, na=False, case=False)].copy()
@@ -53,3 +55,4 @@ if coluna_filtro in df_total.columns:
     # Salvar
     caminho_saida = r'C:\Users\Cyroo\Documents\TCC\DIARIO\base_RMS_final.csv'
     df_rms.to_csv(caminho_saida, index=False, encoding='utf-8-sig')
+    
