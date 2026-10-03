@@ -88,13 +88,26 @@ def extrair_municipio(nome_praca: str, ponto_id: str) -> str:
         if candidato in MUNICIPIOS_RMS_NORM:
             return candidato
 
-    municipios_primeiro_token = {m.split(" ")[0]: m for m in MUNICIPIOS_RMS_NORM}
+    # Palavras genéricas demais para servir de identificador sozinhas —
+    # aparecem como sufixo comum em nomes de praça/pórtico que nada têm a
+    # ver com o município de mesmo sufixo (ex.: 'MORRO II SUL' é só uma
+    # descrição de direção, não tem relação com o município 'Pilar do Sul').
+    PALAVRAS_GENERICAS = {
+        "SUL", "NORTE", "LESTE", "OESTE", "ALTO", "BAIXO", "VELHO", "NOVO",
+        "NOVA", "GRANDE", "PEQUENO", "CENTRO",
+    }
+
+    municipios_primeiro_token = {
+        m.split(" ")[0]: m for m in MUNICIPIOS_RMS_NORM
+        if m.split(" ")[0] not in PALAVRAS_GENERICAS
+    }
     # Municípios compostos (3+ palavras) também são buscados pela ÚLTIMA
     # palavra, para cobrir abreviações por iniciais (ex.: 'S M ARCANJO' para
-    # 'SAO MIGUEL ARCANJO'). Só aplicado a nomes com 3+ palavras, para não
-    # arriscar colisão com municípios de duas palavras (ex.: 'SAO ROQUE').
+    # 'SAO MIGUEL ARCANJO'). Só aplicado a nomes com 3+ palavras E cuja
+    # última palavra não seja genérica demais para identificar sozinha.
     municipios_ultimo_token = {
-        m.split(" ")[-1]: m for m in MUNICIPIOS_RMS_NORM if len(m.split(" ")) >= 3
+        m.split(" ")[-1]: m for m in MUNICIPIOS_RMS_NORM
+        if len(m.split(" ")) >= 3 and m.split(" ")[-1] not in PALAVRAS_GENERICAS
     }
     for candidato in candidatos:
         for token in candidato.split(" "):
