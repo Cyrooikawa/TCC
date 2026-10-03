@@ -56,6 +56,12 @@ def normalizar(texto: str) -> str:
 
 MUNICIPIOS_RMS_NORM = {normalizar(m) for m in MUNICIPIOS_RMS}
 
+# Variações de grafia conhecidas, confirmadas manualmente pelo autor (não são
+# deduzidas automaticamente, para não arriscar falso positivo).
+ALIAS_MUNICIPIO = {
+    "MAIRIQUE": "MAIRINQUE",
+}
+
 
 def classificar_regime(nome_praca: str) -> str:
     """Distingue praça física de pórtico free-flow, sem misturar no nome."""
@@ -77,6 +83,8 @@ def extrair_municipio(nome_praca: str, ponto_id: str) -> str:
     candidatos = [normalizar(nome_praca), normalizar(ponto_id)]
 
     for candidato in candidatos:
+        if candidato in ALIAS_MUNICIPIO:
+            return ALIAS_MUNICIPIO[candidato]
         if candidato in MUNICIPIOS_RMS_NORM:
             return candidato
 
