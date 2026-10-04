@@ -66,6 +66,17 @@ def dtw(real, previsto, janela: int = 7):
     return float(custo[n, n] / n)
 
 
+def origens(n: int, proporcao_treino: float, passo: int, horizonte_min: int) -> list:
+    """
+    Posições (índices) das datas de partida das previsões no período de teste.
+    A primeira é o último dia do treino; as seguintes avançam de `passo` em
+    `passo` dias. Todos os modelos usam esta mesma função, para que sejam
+    avaliados exatamente nas mesmas datas.
+    """
+    n_treino = int(n * proporcao_treino)
+    return list(range(n_treino - 1, n - horizonte_min, passo))
+
+
 def todas(real, previsto, janela_dtw: int = 7) -> dict:
     return {
         "MAE": mae(real, previsto),

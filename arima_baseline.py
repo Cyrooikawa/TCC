@@ -25,7 +25,7 @@ Saída:    resultados/arima_metricas_por_origem.csv
           resultados/arima_<PRACA>.png
 
 Como executar:
-    python arima_baseline.py                  (todas as praças, alguns minutos)
+    python arima_baseline.py                  (todas as praças, cerca de 1 minuto)
     python arima_baseline.py "PORTO FELIZ"    (só uma praça, para teste rápido)
 """
 
@@ -39,6 +39,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import pmdarima as pm
+from statsmodels.stats.diagnostic import acorr_ljungbox
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from statsmodels.tsa.stattools import adfuller
 
@@ -51,6 +52,13 @@ RAIZ = Path(__file__).resolve().parent
 ARQUIVO_SERIES = RAIZ / "dados" / "processados" / "series_diarias.csv"
 PASTA_RESULTADOS = RAIZ / "resultados"
 PASTA_RESULTADOS.mkdir(exist_ok=True)
+
+# O modelo é ajustado com o volume em MILHARES de veículos e a previsão é
+# convertida de volta para veículos no final. O ARIMA não muda com a unidade
+# de medida, mas números na casa das dezenas de milhares podem fazer o
+# otimizador numérico parar num ponto degenerado (aconteceu com Sorocaba:
+# previsão igual a zero). Em milhares, todas as praças convergem.
+ESCALA = 1000
 
 
 def carregar_serie(series: pd.DataFrame, praca: str) -> pd.Series:
@@ -86,32 +94,65 @@ def avaliar_praca(y: pd.Series, praca: str, grupo: str):
     adf = adfuller(treino.dropna())
     print(f"Dickey-Fuller aumentado no treino: p-valor = {adf[1]:.4f}")
 
-    print("Escolhendo a ordem do modelo (auto_arima)...")
-    ordem, ordem_sazonal = escolher_ordem(treino)
+    if praca in config.ORDENS_ARIMA:
+        ordem, ordem_sazonal = config.ORDENS_ARIMA[praca]
+        origem_ordem = "fixada em config.py"
+    else:
+        print("Escolhendo a ordem do modelo (auto_arima)...")
+        ordem, ordem_sazonal = escolher_ordem(treino)
+        origem_ordem = "auto_arima nesta execucao"
     d_total = ordem[1] + ordem_sazonal[1]
     tendencia = "c" if d_total == 0 else "n"
-    print(f"Modelo escolhido: SARIMA{ordem}x{ordem_sazonal}")
+    print(f"Modelo: SARIMA{ordem}x{ordem_sazonal} ({origem_ordem})")
 
     # As restrições de estacionariedade e invertibilidade ficam LIGADAS (padrão
     # do statsmodels). Com elas desligadas, a estimação pode divergir e gerar
     # previsões vazias -- foi o que aconteceu com Boituva num primeiro teste.
     ajuste = SARIMAX(
-        treino, order=ordem, seasonal_order=ordem_sazonal, trend=tendencia,
+        treino / ESCALA, order=ordem, seasonal_order=ordem_sazonal, trend=tendencia,
         enforce_stationarity=True, enforce_invertibility=True,
     ).fit(disp=False, maxiter=200)
 
-    if not np.isfinite(ajuste.llf) or not np.isfinite(ajuste.forecast(1)).all():
-        raise RuntimeError(f"Ajuste do ARIMA inválido para {praca} -- revisar antes de seguir.")
+    # Checagem de segurança: o ajuste precisa ter convergido e a previsão da
+    # primeira semana precisa estar numa faixa plausível (entre metade e o
+    # dobro da média das últimas 4 semanas de treino). Se não estiver, o script
+    # para, em vez de gerar métricas absurdas silenciosamente.
+    media_recente = treino.dropna().iloc[-28:].mean()
+    media_prevista = (ajuste.forecast(7) * ESCALA).mean()
+    if (not ajuste.mle_retvals.get("converged", False)
+            or not np.isfinite(media_prevista)
+            or not (0.5 * media_recente <= media_prevista <= 2 * media_recente)):
+        raise RuntimeError(
+            f"Ajuste do ARIMA inválido para {praca} (convergiu="
+            f"{ajuste.mle_retvals.get('converged')}, média prevista={media_prevista:.0f}, "
+            f"média recente={media_recente:.0f}) -- revisar antes de seguir.")
+
+    # Verificação diagnóstica (terceira etapa do ciclo de Box e Jenkins): se o
+    # modelo captou todo o padrão da série, o que sobra (resíduo) deve ser
+    # ruído sem padrão. O teste de Ljung-Box verifica isso olhando 7 e 14 dias
+    # para trás. p-valor < 0,05 = ainda há padrão não capturado no resíduo.
+    # Os primeiros dias do resíduo são descartados (período de aquecimento do
+    # modelo) e dias sem dado são ignorados.
+    residuo = ajuste.resid.iloc[ajuste.loglikelihood_burn:]
+    residuo = residuo[treino.iloc[ajuste.loglikelihood_burn:].notna()]
+    ljung = acorr_ljungbox(residuo, lags=[7, 14], return_df=True)
+    p_lag7, p_lag14 = ljung["lb_pvalue"].iloc[0], ljung["lb_pvalue"].iloc[1]
+    if min(p_lag7, p_lag14) < 0.05:
+        print(f"Ljung-Box nos resíduos: p = {p_lag7:.4f} (7 dias), {p_lag14:.4f} (14 dias) "
+              f"-> ainda há padrão não capturado pelo modelo")
+    else:
+        print(f"Ljung-Box nos resíduos: p = {p_lag7:.4f} (7 dias), {p_lag14:.4f} (14 dias) "
+              f"-> resíduo sem padrão aparente")
 
     horizonte_max = max(config.HORIZONTES.values())
     horizonte_min = min(config.HORIZONTES.values())
     linhas = []
     previsao_primeira_origem = None
 
-    for origem in range(n_treino - 1, n - 1 - horizonte_min + 1, config.PASSO_ORIGENS_DIAS):
+    for origem in metricas.origens(n, config.PROPORCAO_TREINO, config.PASSO_ORIGENS_DIAS, horizonte_min):
         passos = min(horizonte_max, n - 1 - origem)
-        ajuste_origem = ajuste.apply(y.iloc[: origem + 1])
-        previsao = ajuste_origem.forecast(steps=passos)
+        ajuste_origem = ajuste.apply(y.iloc[: origem + 1] / ESCALA)
+        previsao = ajuste_origem.forecast(steps=passos) * ESCALA
 
         if previsao_primeira_origem is None:
             previsao_primeira_origem = previsao
@@ -132,7 +173,9 @@ def avaliar_praca(y: pd.Series, praca: str, grupo: str):
     info_modelo = {
         "MODELO": "ARIMA", "GRUPO": grupo, "PRACA": praca,
         "ORDEM": str(ordem), "ORDEM_SAZONAL": str(ordem_sazonal),
-        "ADF_P_VALOR": round(adf[1], 4), "AIC": round(ajuste.aic, 1),
+        "ORIGEM_DA_ORDEM": origem_ordem,
+        "ADF_P_VALOR": round(adf[1], 4), "AIC_EM_MILHARES": round(ajuste.aic, 1),
+        "LJUNGBOX_P_7DIAS": round(p_lag7, 4), "LJUNGBOX_P_14DIAS": round(p_lag14, 4),
         "INICIO_TREINO": treino.index.min().date(), "FIM_TREINO": treino.index.max().date(),
     }
 

@@ -76,3 +76,23 @@ PERIODO_SAZONAL = 7
 
 # Faixa da restrição de Sakoe-Chiba usada no DTW (dias de deslocamento máximo).
 JANELA_DTW = 7
+
+# ---------------------------------------------------------------------------
+# Ordens do ARIMA fixadas (reprodutibilidade)
+# ---------------------------------------------------------------------------
+
+# A escolha automática (auto_arima, busca "stepwise" pelo menor AIC, só com os
+# dados de treino) pode chegar a modelos diferentes em computadores com versões
+# diferentes de pandas/numpy -- aconteceu com Sorocaba. Por isso, as ordens
+# escolhidas na execução oficial do autor (ambiente registrado em
+# versoes_bibliotecas.txt) ficam fixadas aqui. Formato:
+#     praça: ((p, d, q), (P, D, Q, período sazonal))
+# Para refazer a escolha automática, apague a praça deste dicionário (ou deixe
+# o dicionário vazio) e rode arima_baseline.py de novo.
+ORDENS_ARIMA = {
+    "ALAMBARI":            ((0, 1, 1), (0, 0, 1, 7)),
+    "BOITUVA":             ((3, 1, 2), (0, 0, 2, 7)),
+    "BLOQUEIO DE BOITUVA": ((2, 1, 1), (1, 0, 1, 7)),
+    "PORTO FELIZ":         ((2, 1, 0), (1, 0, 1, 7)),
+    "SOROCABA":            ((2, 1, 2), (1, 0, 1, 7)),
+}
