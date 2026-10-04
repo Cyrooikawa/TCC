@@ -128,9 +128,59 @@ def extrair_municipio(nome_praca: str, ponto_id: str) -> str:
     return "NAO_IDENTIFICADO"
 
 
+def agregar_volume_por_categoria(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Soma as colunas de eixo em três grupos (LEVE, MOTO, PESADO), mais a soma
+    geral (VOLUME_TOTAL), preservando as colunas originais por baixo para
+    rastreabilidade -- nada é descartado, só agregado de forma legível.
+
+    Usa apenas colunas até EIXOS 10 (configurações acima disso não
+    correspondem a veículo real, quase sempre vêm zeradas).
+    """
+    df = df.copy()
+    categorias = ["LEVE", "MOTO", "PESADO"]
+    for categoria in categorias:
+        cols = [
+            c for c in df.columns
+            if c.upper().startswith(categoria) and "EIXOS" in c.upper()
+            and int(c.split(" ")[-1]) <= 10
+        ]
+        for c in cols:
+            df[c] = pd.to_numeric(df[c], errors="coerce")
+        df[f"VOLUME_{categoria}"] = df[cols].sum(axis=1) if cols else 0
+
+    df["VOLUME_TOTAL"] = df[[f"VOLUME_{c}" for c in categorias]].sum(axis=1)
+    return df
+
+
+def classificar_direcionalidade(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Classifica cada praça como BIDIRECIONAL (registra 2 ou mais sentidos,
+    tipicamente fluxo de entrada e saída) ou UNIDIRECIONAL (registra só um
+    sentido -- geralmente pedágio de acesso que cobra só quem entra, caso
+    confirmado para Sorocaba, mas que também aparece em Alumínio, Itu, São
+    Roque e no par Araçoiaba Leste/Oeste).
+
+    Isso não é um problema de qualidade de dado a corrigir -- é uma
+    característica real do desenho de cobrança de cada praça, que precisa
+    ser preservada como informação, não escondida, porque impede comparar
+    diretamente uma praça unidirecional com uma bidirecional na mesma
+    análise (unidirecional mede só entrada, bidirecional mede fluxo total).
+    """
+    df = df.copy()
+    sentidos_por_praca = df.groupby("PRACA")["SENTIDO"].nunique()
+    pracas_bidirecionais = set(sentidos_por_praca[sentidos_por_praca >= 2].index)
+    df["DIRECIONALIDADE"] = df["PRACA"].apply(
+        lambda p: "BIDIRECIONAL" if p in pracas_bidirecionais else "UNIDIRECIONAL"
+    )
+    return df
+
+
 def tratar(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df["PRACA"] = df["PRACA"].apply(normalizar)
+    df = agregar_volume_por_categoria(df)
+    df = classificar_direcionalidade(df)
 
     df["REGIME_COBRANCA"] = df["PRACA"].apply(classificar_regime)
 

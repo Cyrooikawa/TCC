@@ -1,27 +1,56 @@
-# Previsão de Tráfego Rodoviário (Região de Sorocaba) com Machine Learning
+# Previsão de Fluxo Veicular em Rodovias da Região de Sorocaba
 
-## Sobre o Projeto
-Este repositório contém o código fonte e os dados processados do Projeto de Final de Curso (TCC) focado na análise e predição de fluxo veicular em rodovias da Região Metropolitana de Sorocaba (RMS). 
+Projeto de Final de Curso (UNESP Sorocaba). Análise comparativa entre modelos
+estatísticos (ARIMA, Prophet) e arquiteturas de aprendizado profundo (LSTM, GRU,
+Bi-LSTM, Bi-GRU, N-HiTS) para previsão de volume diário em praças de pedágio da
+Região Metropolitana de Sorocaba (RMS), com dados abertos da ARTESP.
 
-O objetivo principal desta pesquisa é realizar uma análise comparativa de desempenho entre modelos estatísticos clássicos e arquiteturas avançadas de *Deep Learning* para previsão de séries temporais em diferentes horizontes.
+**Autor:** Cyro Hideyoshi Shimizu Oikawa
+**Orientador:** Prof. Dr. Leopoldo André Dutra Lusquino Filho
 
-**Autor:** Cyro Hideyoshi Shimizu Oikawa  
-**Orientador:** Prof. Dr. Leopoldo André Dutra Lusquino Filho  
+## Recorte das praças
 
-## Metodologia e Tecnologias
-O pipeline de dados foi desenvolvido utilizando **Python** e envolve as seguintes etapas:
-1. **ETL e Pré-processamento:** Extração de dados abertos da ARTESP, unificação de arquivos, tratamento de valores nulos e filtragem de praças de pedágio com histórico inferior a 12 meses para evitar quebras estruturais.
-2. **Análise Exploratória de Dados (EDA):** Identificação de sazonalidade anual, tendências de crescimento e anomalias históricas (ex: impacto de bloqueios pandêmicos em 2020).
-3. **Modelagem (Em andamento):** * **Estatística Clássica:** ARIMA / Prophet.
-   * **Redes Neurais Recorrentes:** LSTM, GRU, Bi-LSTM.
+| Grupo | Praças | Por quê |
+|---|---|---|
+| Núcleo (comparação principal) | Alambari, Boituva, Bloqueio de Boituva, Porto Feliz | Bidirecionais, série contínua desde 2020, escala compatível |
+| Caso Sorocaba (separado) | Sorocaba (praça física) | Unidirecional: o pedágio só cobra quem entra na cidade |
+| Fora da modelagem | Pórticos Itu/Salto; Quadra; Alumínio, Araçoiaba, São Roque, Itu (praça física) | Escala incompatível; fora da RMS; quebra estrutural na troca de concessão |
 
-## Estrutura do Repositório
-* `main.ipynb`: Notebook principal contendo todo o fluxo de Análise Exploratória (EDA), visualização de sazonalidade e p    reparação dos modelos preditivos.
-* `base_RMS_final.csv`: Base de dados unificada, limpa e padronizada. Este é o arquivo fonte utilizado para alimentar as redes neurais. *(Nota: Os dados brutos originais da ARTESP foram omitidos do versionamento devido ao seu volume).*
-* `requirements.txt`: Lista de dependências e bibliotecas Python utilizadas no projeto.
+Todas as decisões ficam centralizadas em `config.py`.
 
-## 🚀 Como Executar
-[]
-1. Clone este repositório para a sua máquina local:
-```bash
-   git clone [https://github.com/Cyrooikawa/TCC.git](https://github.com/Cyrooikawa/TCC.git)
+## Arquivos
+
+| Arquivo | O que faz |
+|---|---|
+| `organizar_por_ano.py` | Copia os CSVs baixados da ARTESP (pastas por ano) para `dados/brutos/`, separando núcleo e estudo de caso |
+| `extracao.py` | Junta os arquivos de cada lote; descarta linhas de outro ano dentro do arquivo anual |
+| `tratamento.py` | Padroniza praça/município, filtra a RMS (27 municípios), soma volume por categoria (leve/moto/pesado), marca direcionalidade |
+| `preparar_series.py` | Gera a série diária de cada praça modelada, marcando dias ausentes e invalidados |
+| `config.py` | Decisões do experimento: praças, períodos invalidados, 70% treino, horizontes 7/90/180 dias |
+| `metricas.py` | MAE, RMSE, MAPE, SMAPE e DTW — usadas por todos os modelos |
+| `arima_baseline.py` | ARIMA (baseline) com avaliação nos três horizontes |
+| `visualizacao_tratamento.ipynb` | Gráficos das séries e dos resultados |
+| `main.ipynb`, `DIARIO/` | Legado da primeira versão do pipeline — não usar como fonte |
+
+## Como executar (Windows, a partir da pasta do projeto)
+
+Instalar dependências (uma vez só):
+```
+pip install -r requirements.txt
+```
+
+Organizar os arquivos brutos (só na primeira vez ou ao baixar arquivo novo):
+```
+python organizar_por_ano.py "C:\caminho\da\pasta\com\os\anos"
+```
+
+Rodar o pipeline, sempre nesta ordem:
+```
+python extracao.py
+python tratamento.py
+python preparar_series.py
+python arima_baseline.py
+```
+
+Os resultados do ARIMA ficam em `resultados/`. Para ver os gráficos, abra
+`visualizacao_tratamento.ipynb` no Jupyter ou VS Code e rode todas as células.
