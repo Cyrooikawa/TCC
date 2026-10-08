@@ -26,7 +26,9 @@ Saída:    resultados/arima_metricas_por_origem.csv
 
 Como executar:
     python arima_baseline.py                  (todas as praças, cerca de 1 minuto)
-    python arima_baseline.py "PORTO FELIZ"    (só uma praça, para teste rápido)
+    python arima_baseline.py "PORTO FELIZ"    (só uma praça, para teste rápido;
+                                               salva em arquivos *_teste_*.csv, sem
+                                               apagar os resultados completos)
 """
 
 import sys
@@ -200,12 +202,12 @@ if __name__ == "__main__":
     series = pd.read_csv(ARQUIVO_SERIES, parse_dates=["DATA"])
 
     alvos = [(p, "NUCLEO") for p in config.PRACAS_NUCLEO] + \
-            [(p, "CASO_SOROCABA") for p in config.PRACAS_CASO_SOROCABA]
+            [(p, "UNIDIRECIONAL") for p in config.PRACAS_UNIDIRECIONAIS]
     if len(sys.argv) > 1:
         alvos = [(p, g) for p, g in alvos if p == sys.argv[1].upper()]
         if not alvos:
             print(f"Praça '{sys.argv[1]}' não encontrada. Opções: "
-                  f"{config.PRACAS_NUCLEO + config.PRACAS_CASO_SOROCABA}")
+                  f"{config.PRACAS_NUCLEO + config.PRACAS_UNIDIRECIONAIS}")
             sys.exit(1)
 
     todas_linhas, todos_modelos = [], []
@@ -215,9 +217,16 @@ if __name__ == "__main__":
         todas_linhas.extend(linhas)
         todos_modelos.append(info)
 
+    # Rodando só uma praça (teste), os resultados vão para arquivos separados,
+    # para não apagar os resultados completos usados pela tabela comparativa.
+    sufixo = "" if len(sys.argv) == 1 else "_teste_" + sys.argv[1].upper().replace(" ", "_")
+
     por_origem = pd.DataFrame(todas_linhas)
-    por_origem.to_csv(PASTA_RESULTADOS / "arima_metricas_por_origem.csv", index=False, encoding="utf-8-sig")
-    pd.DataFrame(todos_modelos).to_csv(PASTA_RESULTADOS / "arima_modelos.csv", index=False, encoding="utf-8-sig")
+    # O nome do arquivo de teste não termina em "_metricas_por_origem.csv", para
+    # que comparar_modelos.py nunca o confunda com um resultado oficial.
+    nome_por_origem = "arima_metricas_por_origem.csv" if not sufixo else f"arima{sufixo}_metricas.csv"
+    por_origem.to_csv(PASTA_RESULTADOS / nome_por_origem, index=False, encoding="utf-8-sig")
+    pd.DataFrame(todos_modelos).to_csv(PASTA_RESULTADOS / f"arima_modelos{sufixo}.csv", index=False, encoding="utf-8-sig")
 
     resumo = (por_origem
               .groupby(["GRUPO", "PRACA", "HORIZONTE", "DIAS"])[["MAE", "RMSE", "MAPE", "SMAPE", "DTW"]]
@@ -225,7 +234,7 @@ if __name__ == "__main__":
               .sort_values(["GRUPO", "PRACA", "DIAS"]))
     resumo["N_ORIGENS"] = (por_origem.groupby(["GRUPO", "PRACA", "HORIZONTE", "DIAS"])
                            .size().reindex(pd.MultiIndex.from_frame(resumo[["GRUPO", "PRACA", "HORIZONTE", "DIAS"]])).values)
-    resumo.to_csv(PASTA_RESULTADOS / "arima_resumo.csv", index=False, encoding="utf-8-sig")
+    resumo.to_csv(PASTA_RESULTADOS / f"arima_resumo{sufixo}.csv", index=False, encoding="utf-8-sig")
 
     print("\n=== RESUMO (média das origens de teste) ===")
     print(resumo.to_string(index=False))

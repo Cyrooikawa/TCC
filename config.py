@@ -18,20 +18,26 @@ Este arquivo não é executado sozinho.
 # medição, e escala de volume compatível entre si (milhares de veículos/dia).
 PRACAS_NUCLEO = ["ALAMBARI", "BOITUVA", "BLOQUEIO DE BOITUVA", "PORTO FELIZ"]
 
-# Caso separado: praça física de Sorocaba. Entra no trabalho, mas NÃO na mesma
-# tabela comparativa do núcleo, porque é UNIDIRECIONAL (o pedágio só cobra
-# quem entra na cidade -- mede metade do fluxo, enquanto o núcleo mede o
-# fluxo total). A troca de lote L12 -> L33 em 2025 não causou quebra no nível
-# de volume desta praça (permanece na faixa de 30-33 mil veículos/dia), por
-# isso a série é modelável por si só.
-PRACAS_CASO_SOROCABA = ["SOROCABA"]
+# Grupo unidirecional: praças físicas de Sorocaba e Itu. Entram no trabalho,
+# mas NÃO na mesma tabela comparativa do núcleo, porque o pedágio só cobra um
+# sentido (Sorocaba: Sul; Itu: Leste) -- medem metade do fluxo, enquanto o
+# núcleo mede o fluxo total nos dois sentidos. Ambas têm série contínua de
+# 2020 a 2026, e a troca de lote L12 -> L33 em 2025 não causou quebra no nível
+# de volume (Sorocaba: 30-33 mil/dia; Itu: 34-39 mil/dia).
+PRACAS_UNIDIRECIONAIS = ["SOROCABA", "ITU"]
 
 # Excluídas da modelagem (registradas aqui só para documentar a decisão):
 # - PORTICO ITU 1/2 e PORTICO SALTO 1/2/3: municípios da RMS, mas volume de
-#   74 a 156 veículos/dia, ordem de grandeza incompatível com o núcleo.
+#   74 a 156 veículos/dia, ordem de grandeza incompatível com as demais.
 # - QUADRA: não pertence à RMS (nem administrativa nem estatisticamente).
-# - Alumínio, Araçoiaba Leste/Oeste, São Roque, Itu (praça física): volume
-#   despenca na transição de concessão em 2025 -- quebra estrutural.
+# - Alumínio, Araçoiaba Leste, Araçoiaba Oeste e São Roque (praças físicas):
+#   unidirecionais, com volume estável, mas DESATIVADAS em 30/09/2025 e
+#   substituídas por pórticos -- a série termina cerca de 10 meses antes das
+#   demais. Observação: uma versão antiga da base indicava "quedas de 22% a
+#   75%" nessas praças em 2025; isso era artefato (comparação de 2024 inteiro
+#   com 2025 só até setembro, e nome com espaço extra no arquivo da ARTESP
+#   dividindo a mesma praça em duas), não queda real de volume.
+# - Pórticos free-flow do lote L33 (out/2025 em diante): série curta demais.
 
 # ---------------------------------------------------------------------------
 # Períodos invalidados (dado existe no arquivo da ARTESP, mas não é confiável)
@@ -85,7 +91,9 @@ JANELA_DTW = 7
 # dados de treino) pode chegar a modelos diferentes em computadores com versões
 # diferentes de pandas/numpy -- aconteceu com Sorocaba. Por isso, as ordens
 # escolhidas na execução oficial do autor (ambiente registrado em
-# versoes_bibliotecas.txt) ficam fixadas aqui. Formato:
+# versoes_bibliotecas.txt) ficam fixadas aqui. A ordem de ITU foi escolhida
+# pelo mesmo procedimento (auto_arima no treino) quando a praça foi incluída,
+# e fixada da mesma forma. Formato:
 #     praça: ((p, d, q), (P, D, Q, período sazonal))
 # Para refazer a escolha automática, apague a praça deste dicionário (ou deixe
 # o dicionário vazio) e rode arima_baseline.py de novo.
@@ -95,4 +103,5 @@ ORDENS_ARIMA = {
     "BLOQUEIO DE BOITUVA": ((2, 1, 1), (1, 0, 1, 7)),
     "PORTO FELIZ":         ((2, 1, 0), (1, 0, 1, 7)),
     "SOROCABA":            ((2, 1, 2), (1, 0, 1, 7)),
+    "ITU":                 ((0, 1, 2), (0, 0, 2, 7)),
 }

@@ -13,8 +13,11 @@ Região Metropolitana de Sorocaba (RMS), com dados abertos da ARTESP.
 | Grupo | Praças | Por quê |
 |---|---|---|
 | Núcleo (comparação principal) | Alambari, Boituva, Bloqueio de Boituva, Porto Feliz | Bidirecionais, série contínua desde 2020, escala compatível |
-| Caso Sorocaba (separado) | Sorocaba (praça física) | Unidirecional: o pedágio só cobra quem entra na cidade |
-| Fora da modelagem | Pórticos Itu/Salto; Quadra; Alumínio, Araçoiaba, São Roque, Itu (praça física) | Escala incompatível; fora da RMS; quebra estrutural na troca de concessão |
+| Unidirecional (separado) | Sorocaba, Itu (praças físicas) | O pedágio só cobra um sentido: medem metade do fluxo; séries contínuas 2020-2026 |
+| Fora da modelagem | Pórticos antigos de Itu/Salto | Escala incompatível (74 a 156 veículos/dia) |
+| Fora da modelagem | Alumínio, Araçoiaba Leste/Oeste, São Roque (praças físicas) | Desativadas em 30/09/2025 e substituídas por pórticos |
+| Fora da modelagem | Pórticos free-flow do lote L33 | Existem só a partir de out/2025: série curta |
+| Fora do estudo | Quadra | Não pertence à RMS |
 
 Todas as decisões ficam centralizadas em `config.py`.
 

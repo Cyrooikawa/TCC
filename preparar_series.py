@@ -67,8 +67,8 @@ if __name__ == "__main__":
     partes = []
     for praca in config.PRACAS_NUCLEO:
         partes.append(montar_serie(nucleo, praca, "NUCLEO"))
-    for praca in config.PRACAS_CASO_SOROCABA:
-        partes.append(montar_serie(estudo, praca, "CASO_SOROCABA"))
+    for praca in config.PRACAS_UNIDIRECIONAIS:
+        partes.append(montar_serie(estudo, praca, "UNIDIRECIONAL"))
 
     series = pd.concat([p for p in partes if not p.empty], ignore_index=True)
 

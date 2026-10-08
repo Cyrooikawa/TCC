@@ -65,7 +65,7 @@ def avaliar_praca(y: pd.Series, praca: str, grupo: str) -> list:
 if __name__ == "__main__":
     series = pd.read_csv(ARQUIVO_SERIES, parse_dates=["DATA"])
     alvos = [(p, "NUCLEO") for p in config.PRACAS_NUCLEO] + \
-            [(p, "CASO_SOROCABA") for p in config.PRACAS_CASO_SOROCABA]
+            [(p, "UNIDIRECIONAL") for p in config.PRACAS_UNIDIRECIONAIS]
 
     linhas = []
     for praca, grupo in alvos:

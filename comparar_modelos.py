@@ -7,8 +7,9 @@ script) e calcula, para cada praça e horizonte:
   - a média de cada métrica por modelo;
   - em quantas datas de partida (%) cada modelo errou menos que o ingênuo.
 
-O núcleo e o caso Sorocaba aparecem separados: Sorocaba é unidirecional e não
-deve ser comparada diretamente com as praças do núcleo.
+O núcleo e o grupo unidirecional (Sorocaba e Itu) aparecem separados: as
+praças unidirecionais medem só um sentido e não devem ser comparadas
+diretamente com as praças do núcleo.
 
 Como executar (depois de rodar os modelos):
     python comparar_modelos.py
@@ -46,13 +47,14 @@ if __name__ == "__main__":
         medias = medias.merge(vitorias, on=CHAVES + ["MODELO"], how="left")
         medias.loc[medias["MODELO"] == "INGENUO", "PCT_ORIGENS_VENCE_INGENUO"] = None
 
-    medias = medias.sort_values(["GRUPO", "PRACA", "DIAS", "MODELO"],
-                                ascending=[False, True, True, True])
+    ordem_grupo = {"NUCLEO": 0, "UNIDIRECIONAL": 1}
+    medias["_ORDEM"] = medias["GRUPO"].map(ordem_grupo)
+    medias = medias.sort_values(["_ORDEM", "PRACA", "DIAS", "MODELO"]).drop(columns="_ORDEM")
     medias.to_csv(PASTA_RESULTADOS / "comparacao_modelos.csv", index=False, encoding="utf-8-sig")
 
     tabela = medias.pivot_table(index=["GRUPO", "PRACA", "DIAS"], columns="MODELO",
                                 values="MAPE").round(1)
-    tabela = tabela.sort_index(level=["GRUPO", "PRACA", "DIAS"], ascending=[False, True, True])
+    tabela = tabela.reindex(sorted(tabela.index, key=lambda i: (ordem_grupo.get(i[0], 9), i[1], i[2])))
     print("\n=== MAPE médio (%), por modelo ===")
     print(tabela.to_string())
     print(f"\nTabela completa (todas as métricas): {PASTA_RESULTADOS / 'comparacao_modelos.csv'}")
