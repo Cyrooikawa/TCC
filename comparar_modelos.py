@@ -35,7 +35,9 @@ if __name__ == "__main__":
     modelos = sorted(dados["MODELO"].unique())
     print("Modelos encontrados:", ", ".join(modelos))
 
-    medias = dados.groupby(CHAVES + ["MODELO"])[METRICAS].mean().round(2).reset_index()
+    # As médias ficam SEM arredondar até a hora de gravar e de imprimir. Arredondar
+    # duas vezes (2 casas e depois 1) alterava o último dígito de algumas células.
+    medias = dados.groupby(CHAVES + ["MODELO"])[METRICAS].mean().reset_index()
 
     if "INGENUO" in modelos:
         ingenuo = dados[dados["MODELO"] == "INGENUO"][CHAVES + ["ORIGEM", "MAPE"]]
@@ -50,7 +52,8 @@ if __name__ == "__main__":
     ordem_grupo = {"NUCLEO": 0, "UNIDIRECIONAL": 1}
     medias["_ORDEM"] = medias["GRUPO"].map(ordem_grupo)
     medias = medias.sort_values(["_ORDEM", "PRACA", "DIAS", "MODELO"]).drop(columns="_ORDEM")
-    medias.to_csv(PASTA_RESULTADOS / "comparacao_modelos.csv", index=False, encoding="utf-8-sig")
+    medias.assign(**{m: medias[m].round(2) for m in METRICAS}).to_csv(
+        PASTA_RESULTADOS / "comparacao_modelos.csv", index=False, encoding="utf-8-sig")
 
     tabela = medias.pivot_table(index=["GRUPO", "PRACA", "DIAS"], columns="MODELO",
                                 values="MAPE").round(1)
