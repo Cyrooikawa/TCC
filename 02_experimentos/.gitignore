@@ -1,0 +1,13 @@
+# dados brutos e processados grandes (regeneráveis pelo pipeline)
+dados/brutos/
+dados/processados/*_bruto_unificado.csv
+dados/processados/*_tratado.csv
+dados/processados/*_rms_final.csv
+dados/processados/*_fora_da_rms.csv
+# Python e Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.npz
+__pycache__/
+experimentos/log_*.txt
