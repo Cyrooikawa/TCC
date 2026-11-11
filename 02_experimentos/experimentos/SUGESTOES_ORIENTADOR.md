@@ -5,12 +5,18 @@ validados estão em `RESULTADOS_REFINAMENTO.md`. Abaixo, o que precisa ser decid
 
 ## 1. Decisões
 
-1. **Adotar ou não** as mudanças de `RESULTADOS_REFINAMENTO.md` nos resultados oficiais, e se
-   entram no texto como metodologia principal ou como análise complementar.
-2. **Referência (ingênuo sazonal):** manter o ingênuo oficial ou trocar por uma versão mais
+1. **Adotar ou não** os três ajustes de `RESULTADOS_REFINAMENTO.md` como configuração principal.
+   O texto de `monografia/Resultados_configuracao_ajustada.docx` já assume que sim. Isso
+   resolve duas decisões que estavam abertas: a ordem do SARIMA (análise A2) e a LSTM de
+   180 dias, que antes ficaria como resultado real, sem retreino.
+2. **Raiz sazonal quase unitária no SARIMA:** as ordens de menor AIC têm termo AR sazonal
+   próximo de 1 (por isso o auto_arima as descartava). O texto explica isso como uma
+   aproximação de diferença sazonal; confirmar se o orientador aceita essa leitura.
+3. **Referência (ingênuo sazonal):** manter o ingênuo oficial ou trocar por uma versão mais
    forte (média das últimas 4 semanas ou mesma semana do ano anterior). A troca muda a leitura
    de todos os outros modelos, por isso é decisão metodológica.
-3. **Registrar no texto** que foram testadas várias variantes sobre o mesmo período de teste.
+4. **Registrar no texto** que foram testadas várias variantes sobre o mesmo período de teste.
+   O .docx já cita as variações de configuração rejeitadas pelo critério de treino.
 
 ## 2. Validação adicional (para blindar o resultado)
 
@@ -24,8 +30,15 @@ validados estão em `RESULTADOS_REFINAMENTO.md`. Abaixo, o que precisa ser decid
 
 ## 3. Experimentos que ficaram em aberto
 
-1. **Calendário nas redes em 90 e 180 dias:** na validação o GRU melhorou em 90 dias e piorou
-   em 180; no teste piorou nos dois. Investigar antes de qualquer uso nesses horizontes.
+1. **Calendário como entrada (trabalho futuro da conclusão):** os resultados preliminares
+   ficaram fora do texto porque não são consistentes entre horizontes.
+   - Em 7 dias, LSTM, GRU, Bi-LSTM e Bi-GRU melhoram cerca de 0,5 ponto (para 5,86 a 6,02),
+     e a perda de validação confirma; no N-HiTS o teste melhora, mas a validação piora.
+   - Na GRU de 90 dias a validação melhora e o teste piora (6,54 → 6,88); em 180 dias pioram
+     os dois. No N-HiTS, 90 e 180 dias pioram muito.
+   - No SARIMA, feriados como variável externa baixam o AIC (29570 → 27623) e melhoram 7 dias,
+     mas pioram um pouco 180 dias.
+   - Antes de usar, definir a regra (por exemplo, por horizonte) sem olhar o teste.
 2. **LSTM em 180 dias:** combinar paciência 40 com viés de esquecimento, e repetir nos
    horizontes de 7 e 90 dias.
 3. **SARIMA:** testar feriados e Fourier anual sobre a ordem de menor AIC, com critério de

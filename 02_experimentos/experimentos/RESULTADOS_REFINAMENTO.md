@@ -1,48 +1,41 @@
-# Resultados dos refinamentos
+# Resultados com a configuração ajustada
 
-Cada mudança foi testada isoladamente, com o mesmo treino, as mesmas origens semanais e as
-mesmas praças do resultado oficial, e foi confirmada por um critério que não usa o teste
-(AIC do treino, validação dentro do treino ou perda de validação). Os resultados oficiais
-da monografia não foram alterados.
+Versão para a monografia: `monografia/Resultados_configuracao_ajustada.docx`, com texto,
+tabelas e figuras prontos para colar. Este arquivo é o resumo.
 
-SMAPE médio das seis praças (%), antes e depois.
+## Regra usada
 
-## Mudanças aplicadas
+- Três ajustes de configuração, um por problema já diagnosticado na primeira execução.
+- Cada um muda um único elemento e não acrescenta informação que o modelo não recebia.
+- A escolha usa só o treino: AIC no SARIMA, SMAPE em origens dentro dos 20% finais do treino
+  no Prophet, perda de validação na LSTM. O teste só mede o efeito.
+- Entre as variações de configuração testadas para cada modelo, o ajuste escolhido é o de
+  melhor critério no treino.
 
-| Modelo | Mudança | Horizonte | Antes | Depois | Origens melhores | Critério sem teste |
-|---|---|---|---|---|---|---|
-| SARIMA | Ordem de menor AIC | 7 d | 6,76 | 5,92 | 71% | AIC do treino 29570 → 27868 |
-| SARIMA | | 90 d | 7,65 | 6,49 | 79% | |
-| SARIMA | | 180 d | 7,59 | 6,46 | 81% | |
-| Prophet | Janela própria para feriados longos | 7 d | 4,64 | 4,43 | 59% | SMAPE de validação 4,85 → 4,66 (7 d) |
-| Prophet | | 90 d | 4,71 | 4,49 | 71% | 4,58 → 4,45 (90 d) |
-| Prophet | | 180 d | 4,68 | 4,47 | 80% | |
-| LSTM | Paciência 40 e até 400 épocas | 180 d | 10,15 | 7,67 | 91% | perda de validação 0,0631 → 0,0444 |
-| LSTM | Viés da porta de esquecimento = 1 | 180 d | 10,15 | 8,72 | 86% | perda de validação 0,0631 → 0,0531 |
-| LSTM | Calendário como entrada | 7 d | 6,37 | 5,90 | 55% | perda de validação 0,0364 → 0,0331 |
-| GRU | Calendário como entrada | 7 d | 6,44 | 5,86 | 58% | perda de validação 0,0356 → 0,0331 |
-| Bi-LSTM | Calendário como entrada | 7 d | 6,46 | 6,02 | 56% | perda de validação 0,0363 → 0,0335 |
-| Bi-GRU | Calendário como entrada | 7 d | 6,41 | 5,89 | 60% | perda de validação 0,0360 → 0,0334 |
+## Ajustes
 
-O calendário é o dia da semana mais feriado, véspera e dia seguinte, o mesmo calendário do
-Prophet. As redes com calendário também treinam mais rápido (por exemplo, GRU de 7 para 5 min
-e Bi-LSTM de 17 para 6 min).
+| Modelo | Problema | Ajuste | Critério no treino | SMAPE original | SMAPE ajustado |
+|---|---|---|---|---|---|
+| SARIMA | previsão perde o ciclo semanal | ordem de menor AIC (grade de 144 ordens) | AIC 29570 → 27868 | 6,77 / 7,66 / 7,60 | 5,92 / 6,49 / 6,46 |
+| Prophet | erro concentrado nos feriados longos | janela própria para Carnaval, Sexta-feira Santa, Natal e Ano Novo | validação 4,85 / 4,58 → 4,66 / 4,45 | 4,64 / 4,71 / 4,68 | 4,43 / 4,49 / 4,47 |
+| LSTM 180 d | 3 sementes presas num platô | paciência 40, até 400 épocas | perda 0,0631 → 0,0444 | 10,15 | 7,67 |
 
-## Desempenho dos modelos com essas mudanças
+## Resultado com a configuração ajustada (SMAPE, %)
 
 | Modelo | 7 dias | 90 dias | 180 dias |
 |---|---|---|---|
 | Prophet | 4,43 | 4,49 | 4,47 |
 | SARIMA | 5,92 | 6,49 | 6,46 |
-| GRU | 5,86 | 6,54 | 7,38 |
-| Bi-GRU | 5,89 | 6,55 | 7,14 |
-| LSTM | 5,90 | 7,38 | 7,67 |
-| Bi-LSTM | 6,02 | 6,89 | 7,60 |
 | N-HiTS | 6,13 | 6,58 | 6,84 |
+| LSTM | 6,37 | 7,38 | 7,67 |
+| Bi-GRU | 6,41 | 6,55 | 7,14 |
+| GRU | 6,44 | 6,54 | 7,38 |
+| Bi-LSTM | 6,46 | 6,89 | 7,60 |
 | Ingênuo sazonal | 7,40 | 8,72 | 8,91 |
 
-Onde nenhuma mudança foi aplicada, o valor é o oficial.
+- O Prophet tem o menor erro nas cinco métricas, nas seis praças e nos três horizontes.
+- O SARIMA fica em segundo no SMAPE nos três horizontes e supera o ingênuo em todas as praças.
+- Em 7 dias (média das praças por origem, Wilcoxon-Holm), o SARIMA difere do ingênuo e não
+  difere de nenhuma rede.
 
-Como no oficial, o Prophet é o melhor modelo nos três horizontes. O SARIMA refinado fica em
-segundo em 90 e 180 dias, à frente de todas as redes, e em terceiro em 7 dias, atrás só do
-GRU com calendário (5,86 contra 5,92).
+O que não entrou e por quê está em `SUGESTOES_ORIENTADOR.md`.
