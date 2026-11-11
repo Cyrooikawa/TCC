@@ -43,6 +43,6 @@ e Bi-LSTM de 17 para 6 min).
 
 Onde nenhuma mudança foi aplicada, o valor é o oficial.
 
-Como no oficial, o Prophet é o melhor modelo nos três horizontes. Com o SARIMA refinado, ele
-passa a superar todas as redes em 90 dias e, em 7 e 180 dias, todas exceto a melhor rede de
-cada um (GRU em 7 d e N-HiTS em 180 d).
+Como no oficial, o Prophet é o melhor modelo nos três horizontes. O SARIMA refinado fica em
+segundo em 90 e 180 dias, à frente de todas as redes, e em terceiro em 7 dias, atrás só do
+GRU com calendário (5,86 contra 5,92).
