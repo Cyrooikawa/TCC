@@ -137,10 +137,11 @@ def main(modelo, h):
     Xtr, Ytr, Xva, Yva, teste, escalas, info = montar_dados(series, L, h)
     log(f"{modelo} h={h} L={L}: {len(Xtr)} janelas de treino, {len(Xva)} de validação, {len(teste)} previsões de teste")
     rede = criar(modelo, L, h)
+    paciencia, max_epocas = config.PARADA_ESPECIFICA.get((modelo, h), (PACIENCIA, MAX_EPOCAS))
     t0 = time.time()
     historico, melhor_epoca, melhor_val = treinar(
-        rede, Xtr, Ytr, Xva, Yva, SEMENTES, lote=LOTE["NHITS" if modelo == "NHITS" else "RECORRENTES"], max_epocas=MAX_EPOCAS,
-        paciencia=PACIENCIA, lr=TAXA_APRENDIZADO, recorte=RECORTE_GRADIENTE, log=log)
+        rede, Xtr, Ytr, Xva, Yva, SEMENTES, lote=LOTE["NHITS" if modelo == "NHITS" else "RECORRENTES"], max_epocas=max_epocas,
+        paciencia=paciencia, lr=TAXA_APRENDIZADO, recorte=RECORTE_GRADIENTE, log=log)
     t_treino = time.time() - t0
     t1 = time.time()
     Xte = np.asarray([r["entrada"] for r in teste], dtype=np.float32)
@@ -168,7 +169,7 @@ def main(modelo, h):
     resumo = {
         "modelo": modelo, "horizonte": h, "janela_entrada": L, "sementes": SEMENTES,
         "unidades": UNIDADES_NHITS if modelo == "NHITS" else UNIDADES_RECORRENTES,
-        "lote": LOTE["NHITS" if modelo == "NHITS" else "RECORRENTES"], "max_epocas": MAX_EPOCAS, "paciencia": PACIENCIA, "taxa_aprendizado": TAXA_APRENDIZADO,
+        "lote": LOTE["NHITS" if modelo == "NHITS" else "RECORRENTES"], "max_epocas": max_epocas, "paciencia": paciencia, "taxa_aprendizado": TAXA_APRENDIZADO,
         "recorte_gradiente": RECORTE_GRADIENTE, "dados": info,
         "melhor_epoca": melhor_epoca.tolist(), "melhor_validacao": melhor_val.tolist(),
         "epocas_executadas": len(historico),

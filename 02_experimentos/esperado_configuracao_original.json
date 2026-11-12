@@ -1,0 +1,1135 @@
+{
+ "origem_dos_valores": "configuração original: resultados oficiais do autor",
+ "por_praca": [
+  {
+   "modelo": "ARIMA",
+   "dias": 7,
+   "praca": "ALAMBARI",
+   "smape": 7.0062,
+   "dtw": 919.9
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 7,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.2643,
+   "dtw": 277.4
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 7,
+   "praca": "BOITUVA",
+   "smape": 9.6198,
+   "dtw": 3027.5
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 7,
+   "praca": "ITU",
+   "smape": 6.5361,
+   "dtw": 2309.6
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 7,
+   "praca": "PORTO FELIZ",
+   "smape": 7.1336,
+   "dtw": 440.1
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 7,
+   "praca": "SOROCABA",
+   "smape": 5.0322,
+   "dtw": 1447.7
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 90,
+   "praca": "ALAMBARI",
+   "smape": 7.7134,
+   "dtw": 1062.7
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 90,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.4802,
+   "dtw": 253.8
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 90,
+   "praca": "BOITUVA",
+   "smape": 11.1261,
+   "dtw": 3566.6
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 90,
+   "praca": "ITU",
+   "smape": 7.3597,
+   "dtw": 2711.3
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 90,
+   "praca": "PORTO FELIZ",
+   "smape": 8.6528,
+   "dtw": 473.1
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 90,
+   "praca": "SOROCABA",
+   "smape": 5.632,
+   "dtw": 1370.9
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 180,
+   "praca": "ALAMBARI",
+   "smape": 7.6597,
+   "dtw": 1064.0
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 180,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.3687,
+   "dtw": 246.1
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 180,
+   "praca": "BOITUVA",
+   "smape": 10.8301,
+   "dtw": 3526.2
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 180,
+   "praca": "ITU",
+   "smape": 7.3706,
+   "dtw": 2755.9
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 180,
+   "praca": "PORTO FELIZ",
+   "smape": 8.675,
+   "dtw": 479.1
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 180,
+   "praca": "SOROCABA",
+   "smape": 5.7221,
+   "dtw": 1393.8
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 7,
+   "praca": "ALAMBARI",
+   "smape": 5.7193,
+   "dtw": 729.8
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 7,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.7268,
+   "dtw": 298.6
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 7,
+   "praca": "BOITUVA",
+   "smape": 8.5232,
+   "dtw": 2656.5
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 7,
+   "praca": "ITU",
+   "smape": 6.1902,
+   "dtw": 2158.0
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 7,
+   "praca": "PORTO FELIZ",
+   "smape": 6.5077,
+   "dtw": 406.9
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 7,
+   "praca": "SOROCABA",
+   "smape": 5.7904,
+   "dtw": 1672.5
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 90,
+   "praca": "ALAMBARI",
+   "smape": 5.2152,
+   "dtw": 603.7
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 90,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.6984,
+   "dtw": 263.7
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 90,
+   "praca": "BOITUVA",
+   "smape": 9.8804,
+   "dtw": 2676.8
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 90,
+   "praca": "ITU",
+   "smape": 6.1036,
+   "dtw": 1891.4
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 90,
+   "praca": "PORTO FELIZ",
+   "smape": 6.4,
+   "dtw": 339.9
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 90,
+   "praca": "SOROCABA",
+   "smape": 5.9782,
+   "dtw": 1477.1
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 180,
+   "praca": "ALAMBARI",
+   "smape": 5.6158,
+   "dtw": 632.1
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 180,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.8956,
+   "dtw": 274.5
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 180,
+   "praca": "BOITUVA",
+   "smape": 10.3742,
+   "dtw": 2946.7
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 180,
+   "praca": "ITU",
+   "smape": 6.6292,
+   "dtw": 1990.2
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 180,
+   "praca": "PORTO FELIZ",
+   "smape": 7.0786,
+   "dtw": 383.1
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 180,
+   "praca": "SOROCABA",
+   "smape": 7.2462,
+   "dtw": 1806.5
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 7,
+   "praca": "ALAMBARI",
+   "smape": 5.6571,
+   "dtw": 720.8
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 7,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.7078,
+   "dtw": 298.4
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 7,
+   "praca": "BOITUVA",
+   "smape": 8.5847,
+   "dtw": 2681.4
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 7,
+   "praca": "ITU",
+   "smape": 6.1584,
+   "dtw": 2153.4
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 7,
+   "praca": "PORTO FELIZ",
+   "smape": 6.6753,
+   "dtw": 419.5
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 7,
+   "praca": "SOROCABA",
+   "smape": 5.9928,
+   "dtw": 1733.5
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 90,
+   "praca": "ALAMBARI",
+   "smape": 5.3031,
+   "dtw": 615.0
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 90,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.7972,
+   "dtw": 269.9
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 90,
+   "praca": "BOITUVA",
+   "smape": 10.4289,
+   "dtw": 2845.3
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 90,
+   "praca": "ITU",
+   "smape": 6.3732,
+   "dtw": 1953.4
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 90,
+   "praca": "PORTO FELIZ",
+   "smape": 6.9847,
+   "dtw": 376.8
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 90,
+   "praca": "SOROCABA",
+   "smape": 6.4245,
+   "dtw": 1639.0
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 180,
+   "praca": "ALAMBARI",
+   "smape": 6.12,
+   "dtw": 692.0
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 180,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 6.1754,
+   "dtw": 288.6
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 180,
+   "praca": "BOITUVA",
+   "smape": 10.9989,
+   "dtw": 3114.5
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 180,
+   "praca": "ITU",
+   "smape": 7.0679,
+   "dtw": 2087.7
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 180,
+   "praca": "PORTO FELIZ",
+   "smape": 7.3132,
+   "dtw": 399.1
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 180,
+   "praca": "SOROCABA",
+   "smape": 7.9022,
+   "dtw": 1949.3
+  },
+  {
+   "modelo": "GRU",
+   "dias": 7,
+   "praca": "ALAMBARI",
+   "smape": 5.8402,
+   "dtw": 743.2
+  },
+  {
+   "modelo": "GRU",
+   "dias": 7,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.5145,
+   "dtw": 287.6
+  },
+  {
+   "modelo": "GRU",
+   "dias": 7,
+   "praca": "BOITUVA",
+   "smape": 8.7964,
+   "dtw": 2734.4
+  },
+  {
+   "modelo": "GRU",
+   "dias": 7,
+   "praca": "ITU",
+   "smape": 6.2047,
+   "dtw": 2172.9
+  },
+  {
+   "modelo": "GRU",
+   "dias": 7,
+   "praca": "PORTO FELIZ",
+   "smape": 6.3896,
+   "dtw": 397.3
+  },
+  {
+   "modelo": "GRU",
+   "dias": 7,
+   "praca": "SOROCABA",
+   "smape": 5.8661,
+   "dtw": 1695.0
+  },
+  {
+   "modelo": "GRU",
+   "dias": 90,
+   "praca": "ALAMBARI",
+   "smape": 5.1885,
+   "dtw": 607.0
+  },
+  {
+   "modelo": "GRU",
+   "dias": 90,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.8393,
+   "dtw": 270.7
+  },
+  {
+   "modelo": "GRU",
+   "dias": 90,
+   "praca": "BOITUVA",
+   "smape": 9.718,
+   "dtw": 2663.2
+  },
+  {
+   "modelo": "GRU",
+   "dias": 90,
+   "praca": "ITU",
+   "smape": 6.1777,
+   "dtw": 1914.9
+  },
+  {
+   "modelo": "GRU",
+   "dias": 90,
+   "praca": "PORTO FELIZ",
+   "smape": 6.5084,
+   "dtw": 346.0
+  },
+  {
+   "modelo": "GRU",
+   "dias": 90,
+   "praca": "SOROCABA",
+   "smape": 5.7959,
+   "dtw": 1433.3
+  },
+  {
+   "modelo": "GRU",
+   "dias": 180,
+   "praca": "ALAMBARI",
+   "smape": 5.6692,
+   "dtw": 637.4
+  },
+  {
+   "modelo": "GRU",
+   "dias": 180,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.9708,
+   "dtw": 278.2
+  },
+  {
+   "modelo": "GRU",
+   "dias": 180,
+   "praca": "BOITUVA",
+   "smape": 10.8323,
+   "dtw": 3078.7
+  },
+  {
+   "modelo": "GRU",
+   "dias": 180,
+   "praca": "ITU",
+   "smape": 7.2782,
+   "dtw": 2087.1
+  },
+  {
+   "modelo": "GRU",
+   "dias": 180,
+   "praca": "PORTO FELIZ",
+   "smape": 7.3623,
+   "dtw": 400.2
+  },
+  {
+   "modelo": "GRU",
+   "dias": 180,
+   "praca": "SOROCABA",
+   "smape": 7.165,
+   "dtw": 1814.7
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 7,
+   "praca": "ALAMBARI",
+   "smape": 6.8312,
+   "dtw": 829.7
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 7,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 6.6452,
+   "dtw": 334.7
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 7,
+   "praca": "BOITUVA",
+   "smape": 9.4437,
+   "dtw": 2937.2
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 7,
+   "praca": "ITU",
+   "smape": 6.8965,
+   "dtw": 2388.3
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 7,
+   "praca": "PORTO FELIZ",
+   "smape": 8.0234,
+   "dtw": 465.5
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 7,
+   "praca": "SOROCABA",
+   "smape": 6.5712,
+   "dtw": 1826.5
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 90,
+   "praca": "ALAMBARI",
+   "smape": 7.3159,
+   "dtw": 794.9
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 90,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 8.0269,
+   "dtw": 351.7
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 90,
+   "praca": "BOITUVA",
+   "smape": 12.0996,
+   "dtw": 3246.7
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 90,
+   "praca": "ITU",
+   "smape": 8.0882,
+   "dtw": 2460.1
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 90,
+   "praca": "PORTO FELIZ",
+   "smape": 9.0159,
+   "dtw": 463.6
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 90,
+   "praca": "SOROCABA",
+   "smape": 7.7784,
+   "dtw": 1765.5
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 180,
+   "praca": "ALAMBARI",
+   "smape": 7.2821,
+   "dtw": 788.3
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 180,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 8.2327,
+   "dtw": 362.7
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 180,
+   "praca": "BOITUVA",
+   "smape": 12.5166,
+   "dtw": 3301.1
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 180,
+   "praca": "ITU",
+   "smape": 8.2336,
+   "dtw": 2488.9
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 180,
+   "praca": "PORTO FELIZ",
+   "smape": 9.1815,
+   "dtw": 481.5
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 180,
+   "praca": "SOROCABA",
+   "smape": 8.0395,
+   "dtw": 1846.2
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 7,
+   "praca": "ALAMBARI",
+   "smape": 5.7526,
+   "dtw": 726.4
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 7,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.5081,
+   "dtw": 285.3
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 7,
+   "praca": "BOITUVA",
+   "smape": 8.6109,
+   "dtw": 2674.2
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 7,
+   "praca": "ITU",
+   "smape": 6.2461,
+   "dtw": 2195.4
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 7,
+   "praca": "PORTO FELIZ",
+   "smape": 6.5152,
+   "dtw": 407.6
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 7,
+   "praca": "SOROCABA",
+   "smape": 5.6144,
+   "dtw": 1615.6
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 90,
+   "praca": "ALAMBARI",
+   "smape": 5.9653,
+   "dtw": 703.4
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 90,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.7984,
+   "dtw": 267.8
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 90,
+   "praca": "BOITUVA",
+   "smape": 11.1021,
+   "dtw": 3024.8
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 90,
+   "praca": "ITU",
+   "smape": 7.0403,
+   "dtw": 2174.1
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 90,
+   "praca": "PORTO FELIZ",
+   "smape": 7.3339,
+   "dtw": 395.8
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 90,
+   "praca": "SOROCABA",
+   "smape": 7.0356,
+   "dtw": 1811.5
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 180,
+   "praca": "ALAMBARI",
+   "smape": 7.4122,
+   "dtw": 863.5
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 180,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 9.5303,
+   "dtw": 475.7
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 180,
+   "praca": "BOITUVA",
+   "smape": 12.0682,
+   "dtw": 3620.2
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 180,
+   "praca": "ITU",
+   "smape": 8.2705,
+   "dtw": 2673.1
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 180,
+   "praca": "PORTO FELIZ",
+   "smape": 12.4159,
+   "dtw": 750.9
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 180,
+   "praca": "SOROCABA",
+   "smape": 11.1867,
+   "dtw": 2900.1
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 7,
+   "praca": "ALAMBARI",
+   "smape": 5.6718,
+   "dtw": 726.8
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 7,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.5127,
+   "dtw": 287.0
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 7,
+   "praca": "BOITUVA",
+   "smape": 7.6494,
+   "dtw": 2377.1
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 7,
+   "praca": "ITU",
+   "smape": 5.8398,
+   "dtw": 2036.2
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 7,
+   "praca": "PORTO FELIZ",
+   "smape": 6.4807,
+   "dtw": 398.8
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 7,
+   "praca": "SOROCABA",
+   "smape": 5.6115,
+   "dtw": 1611.0
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 90,
+   "praca": "ALAMBARI",
+   "smape": 5.1794,
+   "dtw": 599.0
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 90,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.9244,
+   "dtw": 278.6
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 90,
+   "praca": "BOITUVA",
+   "smape": 9.7795,
+   "dtw": 2626.7
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 90,
+   "praca": "ITU",
+   "smape": 6.1408,
+   "dtw": 1905.1
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 90,
+   "praca": "PORTO FELIZ",
+   "smape": 6.7338,
+   "dtw": 366.1
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 90,
+   "praca": "SOROCABA",
+   "smape": 5.711,
+   "dtw": 1400.8
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 180,
+   "praca": "ALAMBARI",
+   "smape": 5.3898,
+   "dtw": 619.1
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 180,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 5.9435,
+   "dtw": 277.0
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 180,
+   "praca": "BOITUVA",
+   "smape": 10.4611,
+   "dtw": 2881.1
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 180,
+   "praca": "ITU",
+   "smape": 6.207,
+   "dtw": 1896.1
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 180,
+   "praca": "PORTO FELIZ",
+   "smape": 6.8675,
+   "dtw": 373.0
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 180,
+   "praca": "SOROCABA",
+   "smape": 6.1625,
+   "dtw": 1531.5
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 7,
+   "praca": "ALAMBARI",
+   "smape": 4.4593,
+   "dtw": 575.1
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 7,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 3.8462,
+   "dtw": 205.4
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 7,
+   "praca": "BOITUVA",
+   "smape": 6.0577,
+   "dtw": 1870.2
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 7,
+   "praca": "ITU",
+   "smape": 4.4423,
+   "dtw": 1564.9
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 7,
+   "praca": "PORTO FELIZ",
+   "smape": 5.3216,
+   "dtw": 328.0
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 7,
+   "praca": "SOROCABA",
+   "smape": 3.6878,
+   "dtw": 1063.7
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 90,
+   "praca": "ALAMBARI",
+   "smape": 4.5275,
+   "dtw": 556.3
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 90,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 4.0366,
+   "dtw": 208.8
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 90,
+   "praca": "BOITUVA",
+   "smape": 6.0864,
+   "dtw": 1731.4
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 90,
+   "praca": "ITU",
+   "smape": 4.3859,
+   "dtw": 1464.5
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 90,
+   "praca": "PORTO FELIZ",
+   "smape": 5.5646,
+   "dtw": 324.0
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 90,
+   "praca": "SOROCABA",
+   "smape": 3.654,
+   "dtw": 1024.1
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 180,
+   "praca": "ALAMBARI",
+   "smape": 4.5835,
+   "dtw": 562.3
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 180,
+   "praca": "BLOQUEIO DE BOITUVA",
+   "smape": 3.9135,
+   "dtw": 201.0
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 180,
+   "praca": "BOITUVA",
+   "smape": 5.9743,
+   "dtw": 1679.2
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 180,
+   "praca": "ITU",
+   "smape": 4.3244,
+   "dtw": 1445.7
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 180,
+   "praca": "PORTO FELIZ",
+   "smape": 5.7012,
+   "dtw": 332.2
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 180,
+   "praca": "SOROCABA",
+   "smape": 3.5892,
+   "dtw": 1003.2
+  }
+ ],
+ "media_das_pracas": [
+  {
+   "modelo": "ARIMA",
+   "dias": 7,
+   "smape": 6.7654
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 90,
+   "smape": 7.6607
+  },
+  {
+   "modelo": "ARIMA",
+   "dias": 180,
+   "smape": 7.6043
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 7,
+   "smape": 6.4096
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 90,
+   "smape": 6.546
+  },
+  {
+   "modelo": "BIGRU",
+   "dias": 180,
+   "smape": 7.1399
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 7,
+   "smape": 6.4627
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 90,
+   "smape": 6.8852
+  },
+  {
+   "modelo": "BILSTM",
+   "dias": 180,
+   "smape": 7.5963
+  },
+  {
+   "modelo": "GRU",
+   "dias": 7,
+   "smape": 6.4352
+  },
+  {
+   "modelo": "GRU",
+   "dias": 90,
+   "smape": 6.538
+  },
+  {
+   "modelo": "GRU",
+   "dias": 180,
+   "smape": 7.3796
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 7,
+   "smape": 7.4019
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 90,
+   "smape": 8.7208
+  },
+  {
+   "modelo": "INGENUO",
+   "dias": 180,
+   "smape": 8.9143
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 7,
+   "smape": 6.3745
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 90,
+   "smape": 7.3793
+  },
+  {
+   "modelo": "LSTM",
+   "dias": 180,
+   "smape": 10.1473
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 7,
+   "smape": 6.1277
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 90,
+   "smape": 6.5781
+  },
+  {
+   "modelo": "NHITS",
+   "dias": 180,
+   "smape": 6.8386
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 7,
+   "smape": 4.6358
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 90,
+   "smape": 4.7092
+  },
+  {
+   "modelo": "PROPHET",
+   "dias": 180,
+   "smape": 4.681
+  }
+ ]
+}

@@ -97,7 +97,20 @@ JANELA_DTW = 7
 #     praça: ((p, d, q), (P, D, Q, período sazonal))
 # Para refazer a escolha automática, apague a praça deste dicionário (ou deixe
 # o dicionário vazio) e rode arima_baseline.py de novo.
-ORDENS_ARIMA = {
+# ---------------------------------------------------------------------------
+# Configuração: "ajustada" (padrão, a usada no capítulo 4) ou "original"
+# (primeira execução). Para rodar a original no Windows:  set TCC_CONFIGURACAO=original
+# Diferenças (seção 4.5.3 da monografia):
+#   - SARIMA: ordem de menor AIC na busca exaustiva (144 ordens), em vez da busca
+#     passo a passo do auto_arima;
+#   - Prophet: janela própria para os feriados prolongados;
+#   - LSTM de 180 dias: paciência de 40 épocas e teto de 400, em vez de 20 e 200.
+# ---------------------------------------------------------------------------
+import os as _os
+CONFIGURACAO = _os.environ.get("TCC_CONFIGURACAO", "ajustada").strip().lower()
+assert CONFIGURACAO in ("ajustada", "original"), "TCC_CONFIGURACAO deve ser 'ajustada' ou 'original'"
+
+ORDENS_ARIMA_ORIGINAL = {
     "ALAMBARI":            ((0, 1, 1), (0, 0, 1, 7)),
     "BOITUVA":             ((3, 1, 2), (0, 0, 2, 7)),
     "BLOQUEIO DE BOITUVA": ((2, 1, 1), (1, 0, 1, 7)),
@@ -105,3 +118,28 @@ ORDENS_ARIMA = {
     "SOROCABA":            ((2, 1, 2), (1, 0, 1, 7)),
     "ITU":                 ((0, 1, 2), (0, 0, 2, 7)),
 }
+# Menor AIC no treino entre as 144 ordens (p, q <= 3; P, Q <= 2; d = 1; D = 0), com o
+# ajuste usado na previsão (série em milhares, lacunas no filtro de Kalman).
+# Fonte: diagnostico/sarima_busca_completa_ordens.csv (sarima_busca_completa.py).
+ORDENS_ARIMA_AJUSTADA = {
+    "ALAMBARI":            ((3, 1, 2), (1, 0, 2, 7)),
+    "BOITUVA":             ((3, 1, 2), (1, 0, 2, 7)),
+    "BLOQUEIO DE BOITUVA": ((0, 1, 2), (2, 0, 1, 7)),
+    "PORTO FELIZ":         ((3, 1, 2), (1, 0, 2, 7)),
+    "SOROCABA":            ((3, 1, 2), (1, 0, 2, 7)),
+    "ITU":                 ((3, 1, 2), (1, 0, 2, 7)),
+}
+ORDENS_ARIMA = ORDENS_ARIMA_AJUSTADA if CONFIGURACAO == "ajustada" else ORDENS_ARIMA_ORIGINAL
+
+# Prophet: (dias antes, dias depois) dos feriados prolongados. Os demais feriados usam
+# a janela padrão de prophet_modelo.py (2 dias antes e 1 depois).
+JANELAS_FERIADOS_LONGOS = {
+    "Sexta-feira Santa":          (2, 3),   # de quarta a segunda-feira
+    "Natal":                      (4, 2),
+    "Confraternização Universal": (4, 3),
+    "Carnaval":                   (4, 2),
+} if CONFIGURACAO == "ajustada" else {}
+
+# Redes: parada antecipada específica de uma combinação (modelo, horizonte):
+# (paciência, teto de épocas). As demais usam PACIENCIA e MAX_EPOCAS de redes_neurais.py.
+PARADA_ESPECIFICA = {("LSTM", 180): (40, 400)} if CONFIGURACAO == "ajustada" else {}

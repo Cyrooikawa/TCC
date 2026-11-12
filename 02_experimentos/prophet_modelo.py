@@ -90,6 +90,11 @@ def tabela_feriados(ano_inicio: int, ano_fim: int) -> pd.DataFrame:
     feriados = pd.DataFrame(linhas)
     feriados["lower_window"] = -DIAS_ANTES_FERIADO
     feriados["upper_window"] = DIAS_DEPOIS_FERIADO
+    # Janela própria dos feriados prolongados (configuração ajustada; ver config.py)
+    for nome, (antes, depois) in config.JANELAS_FERIADOS_LONGOS.items():
+        assert (feriados.holiday == nome).any(), f"feriado não encontrado no calendário: {nome}"
+        feriados.loc[feriados.holiday == nome, "lower_window"] = -antes
+        feriados.loc[feriados.holiday == nome, "upper_window"] = depois
     return feriados
 
 

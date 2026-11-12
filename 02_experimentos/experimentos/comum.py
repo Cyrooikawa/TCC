@@ -17,6 +17,9 @@ import pandas as pd
 AQUI = Path(__file__).resolve().parent
 PROJ = AQUI.parent
 sys.path.insert(0, str(PROJ))
+# Os experimentos comparam com a configuração ORIGINAL (a da primeira execução).
+import os  # noqa: E402
+os.environ.setdefault("TCC_CONFIGURACAO", "original")
 import config  # noqa: E402
 import metricas  # noqa: E402
 

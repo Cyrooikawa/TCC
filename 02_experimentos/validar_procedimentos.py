@@ -42,6 +42,16 @@ ESPERADO_SMAPE = {
 # as redes podem variar um pouco entre computadores (BLAS e ordem das operações), e a
 # LSTM em 180 dias é a mais sensível (platô no treino; ver seção 4.5.3).
 TOLERANCIA = {"INGENUO": 0.01, "ARIMA": 0.05, "PROPHET": 0.10, "PADRAO_REDES": 0.50, ("LSTM", 180): 2.0}
+# Configuração ajustada (padrão de config.py; capítulo 4): SARIMA com a ordem de menor AIC,
+# Prophet com janela própria para os feriados prolongados e LSTM de 180 dias com paciência 40.
+if config.CONFIGURACAO == "ajustada":
+    ESPERADO_SMAPE.update({
+        "ARIMA":   {7: 5.8971, 90: 6.4584, 180: 6.4231},
+        "PROPHET": {7: 4.4270, 90: 4.4944, 180: 4.4668},
+        "LSTM":    {7: 6.3745, 90: 7.3793, 180: 7.6733},
+    })
+    # O SARIMA com raiz sazonal quase unitária varia um pouco entre computadores (otimizador).
+    TOLERANCIA.update({"ARIMA": 0.10, ("LSTM", 180): 0.50})
 
 
 def verificar(nome, condicao, detalhe=""):
