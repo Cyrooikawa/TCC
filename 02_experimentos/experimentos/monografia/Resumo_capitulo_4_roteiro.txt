@@ -1,0 +1,51 @@
+Resumo do capítulo quatro. Previsão do tráfego nas praças de pedágio da região de Sorocaba.
+
+Parte um. A pergunta.
+O capítulo quatro responde a uma pergunta simples. Para prever quantos carros vão passar por dia nas praças de pedágio, os métodos clássicos de estatística funcionam melhor ou pior do que a inteligência artificial, as chamadas redes neurais?
+
+Parte dois. Como ler os números.
+A principal medida de erro do trabalho se chama és-mápi. É o erro médio em porcentagem, e quanto menor, melhor. Um erro de cinco por cento quer dizer que, numa praça com trinta mil carros por dia, a previsão erra, em média, uns mil e quinhentos carros.
+A segunda medida se chama dê-tê-dáblio. Ela mede se o formato da previsão acompanha o real, por exemplo, o sobe e desce ao longo da semana. Também é melhor quando é menor.
+O trabalho prevê três distâncias no tempo: sete dias, noventa dias e cento e oitenta dias à frente.
+E, para não depender de uma data de sorte, a previsão é repetida toda terça-feira, ao longo de vinte meses.
+
+Parte três. Os competidores.
+Foram testados oito métodos.
+O primeiro é o ingênuo. Ele simplesmente diz: a semana que vem vai ser igual a esta. É a régua mínima. Quem não supera o ingênuo não serve.
+O segundo é o sarima, a estatística clássica. Ele aprende o ritmo da semana, por exemplo, sexta-feira cheia e terça-feira vazia, e repete esse padrão.
+O terceiro é o prófet. Também é estatística, mas ele sabe a data, a época do ano e, principalmente, quando vai ter feriado.
+Os outros cinco são redes neurais. Elas aprendem olhando apenas os números do passado. Não sabem que dia é, nem quando vai ter feriado.
+
+Parte quatro. O resultado.
+Em uma frase: o prófet ganhou de todos, em tudo. O sarima ficou em segundo lugar. As redes neurais ficaram no meio: melhores do que repetir a semana, mas piores do que os dois métodos estatísticos.
+Em números. O prófet errou em torno de quatro vírgula cinco por cento. O sarima, em torno de seis por cento. As redes, entre seis e sete e meio por cento. E o ingênuo, entre sete e meio e nove por cento.
+
+Parte cinco. Por que o prófet ganhou.
+Porque ele é o único que sabe quando vai ter feriado. As semanas de feriado são só um terço do total, mas concentram mais da metade de todo o erro, de todos os métodos. Quem antecipa o feriado ganha a corrida.
+O trabalho ainda fez uma prova: rodou o prófet sem o calendário de feriados. O erro dele subiu cerca de um ponto, mas ele continuou à frente das redes. Ou seja, ele ganha pela informação que recebe e também pela forma como é construído.
+
+Parte seis. Por que as redes não ganharam.
+Por três motivos. Primeiro, elas não recebem o calendário, e sem saber que dia é, não conseguem prever o feriado que vem pela frente. Segundo, há poucos dados, só quatro anos de histórico, e redes neurais costumam precisar de muito mais. Terceiro, elas custam mais: levam horas para treinar, enquanto os métodos estatísticos levam segundos ou minutos.
+
+Parte sete. O que foi ajustado.
+Na primeira rodada, três métodos estavam mal configurados.
+O sarima esquecia o ritmo da semana depois de uns quinze dias, e a previsão virava uma linha reta. O conserto foi fazer uma busca completa pela melhor configuração, em vez de uma busca apressada.
+O prófet tratava todo feriado como se durasse quatro dias, mas Carnaval, Natal e Páscoa duram mais. O conserto foi dar a esses feriados uma janela maior.
+E uma das redes, na previsão de cento e oitenta dias, desistia de aprender cedo demais. O conserto foi deixá-la treinar por mais tempo.
+Uma regra protege o trabalho: cada conserto foi escolhido olhando apenas os dados de treino, de dois mil e vinte e um a dois mil e vinte e quatro, e nunca o período usado para dar a nota. É como estudar pela lista de exercícios, e não pela prova.
+
+Parte oito. Onde a banca pode questionar.
+Primeiro ponto. Na previsão de sete dias, o sarima errou menos do que as redes, mas a diferença não é estatisticamente garantida. Então diga: o sarima teve erro menor. Não diga: o sarima é melhor.
+Segundo ponto. Nas previsões de noventa e de cento e oitenta dias, há poucas janelas independentes no período de teste, e nenhum teste estatístico consegue confirmar as diferenças. Os resultados são observados, e não comprovados.
+Terceiro ponto. A comparação é justa? O prófet recebeu o calendário e as redes não. O texto admite isso e propõe, como trabalho futuro, dar o calendário a todos os métodos.
+Quarto ponto. Os ajustes feitos depois da primeira rodada. A defesa é que foram escolhidos só com os dados de treino, e que os resultados antigos continuam mostrados no texto, nas tabelas treze e quinze.
+
+Parte nove. Como navegar pelo capítulo.
+A seção quatro ponto um explica como tudo foi montado. A quatro ponto dois descreve os dados. A quatro ponto três mostra quem ganhou e por quanto. A quatro ponto quatro traz o placar completo, os feriados, o efeito da distância no tempo, os testes estatísticos e as análises do tipo: e se mudássemos tal coisa? E a quatro ponto cinco interpreta tudo. Se for ler só uma parte, leia a quatro ponto cinco ponto um e a quatro ponto cinco ponto quatro.
+
+Parte dez. O que você precisa fazer.
+Com o orientador: aprovar os três ajustes como versão oficial, aceitar o teste estatístico usado, e confirmar o ingênuo como régua.
+No texto, fora do capítulo quatro: atualizar a seção três ponto um ponto oito, se ela falar da busca do sarima ou do tempo de treino das redes, e atualizar a conclusão, o resumo e o abstract com os números novos.
+E, no seu computador: rodar os programas com a configuração nova e conferir se os números batem. O sarima pode variar um pouco de um computador para outro.
+
+Fim do resumo.
