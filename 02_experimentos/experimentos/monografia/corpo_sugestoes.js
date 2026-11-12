@@ -11,7 +11,7 @@ c.push(H2s("1. O que foi feito"));
 c.push(PP("Foram testadas cerca de 35 variações de configuração nos oito modelos, sempre com uma mudança por vez, as mesmas origens e as mesmas métricas. Para cada variação foi calculado um critério que não usa o conjunto de teste: o AIC no treino (SARIMA), o SMAPE em origens semanais dentro dos 20% finais do treino (ingênuo e Prophet) e a perda de validação (redes). Três ajustes atendem a esse critério, corrigem problemas já descritos na monografia e não acrescentam informação aos modelos:"));
 c.push(CAP("Tabela 1", "Ajustes propostos como configuração principal (SMAPE médio das seis praças, %)"));
 c.push(tabela(["Modelo", "Ajuste", "Critério no treino", "Original (7 / 90 / 180 d)", "Ajustado (7 / 90 / 180 d)"], [
-  ["SARIMA", "Ordem de menor AIC entre as 144 da grade", "AIC 29.570 → 27.868", "6,77 / 7,66 / 7,60", "5,92 / 6,49 / 6,46"],
+  ["SARIMA", "Ordem de menor AIC entre as 144 da grade", "AIC 29.570 → 27.868", "6,77 / 7,66 / 7,60", "5,90 / 6,46 / 6,42"],
   ["Prophet", "Janela própria para Carnaval, Sexta-feira Santa, Natal e Ano-Novo", "SMAPE de validação 4,85 / 4,58 → 4,66 / 4,45", "4,64 / 4,71 / 4,68", "4,43 / 4,49 / 4,47"],
   ["LSTM (180 d)", "Paciência de 40 épocas e teto de 400", "Perda de validação 0,063 → 0,044", "10,15", "7,67"],
 ], [1, 2.2, 1.8, 1.4, 1.4], { tam: 17 }));
@@ -28,7 +28,7 @@ B_("**Transparência sobre os testes.** O texto informa que outras variações d
 c.push(H2s("3. Validação adicional recomendada"));
 B_("**Período de teste novo.** A série termina em 31/07/2026. Usar os meses seguintes (agosto a outubro de 2026), sem nenhum ajuste, como teste adicional é a forma mais forte de confirmar que a ordem dos modelos se mantém.");
 B_("**Validação por origem móvel dentro do treino.** Repetir a escolha dos ajustes com várias origens móveis no treino, e não só com os 20% finais.");
-B_("**Ambiente de execução.** O SARIMA muda de resultado com versões diferentes de numpy e scipy. Registrar as versões usadas e rodar tudo no computador do autor antes da versão final.");
+B_("**Ambiente de execução.** O SARIMA muda de resultado com versões diferentes de numpy e scipy, e, com a raiz sazonal quase unitária, o otimizador para em pontos ligeiramente diferentes conforme o ambiente (em Itu, 5,60% ou 5,73% em 7 dias). Registrar as versões usadas e rodar tudo no computador do autor antes da versão final.");
 
 c.push(H2s("4. Experimentos em aberto (trabalho futuro)"));
 B_("**Calendário como entrada das redes e do SARIMA.** Ficou fora dos resultados porque o efeito não é consistente entre horizontes. Em 7 dias, LSTM, GRU, Bi-LSTM e Bi-GRU melhoram cerca de 0,5 ponto (para 5,86 a 6,02%), e a perda de validação confirma; no N-HiTS, a validação piora. Em 90 dias, a GRU melhora na validação e piora no teste (6,54 → 6,88%); em 180 dias e no N-HiTS em 90 e 180 dias, o erro aumenta. No SARIMA, os feriados como variáveis externas reduzem o AIC (29.570 → 27.623) e melhoram 7 dias, mas pioram levemente 180 dias. Antes de usar, é preciso definir a regra de adoção por horizonte sem olhar o teste. Isso apoia o trabalho futuro já previsto na conclusão: dar o calendário a todos os modelos.");
